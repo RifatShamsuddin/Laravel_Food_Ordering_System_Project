@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cart;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Dish;
@@ -52,21 +53,92 @@ class DishController extends Controller
         $dish->delete();
         return back();
     }
+
     public function dish_edit($dish_id)
     {
-        return view('restaurant.menu.dish_edit', compact('dish'));
+        $dish = Dish::find($dish_id);
+        return view('restaurant.menu.edit', compact('dish'));
     }
 
-
-    public function dish_update(Request $request, Dish $dish)
+    public function dish_update(Request $request, $dish_id)
     {
-        $dish->dish_name = $request->dish_name;
-        $dish->dish_detail = $dish->dish_detail;
-        $dish->dish_status = $dish->dish_status;
-        $dish->dish_price = $dish->dish_price;
-        $dish->dish_image = $dish->dish_image;
+        // Validation for required fields (and using some regex to validate our numeric value)
+        $dish = Dish::find($dish_id);
 
+        if ($request->dish_image != '') {
+            $path = 'adminDashboardSourceFiles\dish_img';
+
+            //code for remove old file
+            if ($dish->dish_image != " "  && $dish->dish_image != null) {
+                $dish_image_old = $dish->dish_image;
+                unlink($dish_image_old);
+            }
+
+            //upload new file
+            $dish_image = $request->dish_image;
+            $filename = $dish_image->getClientOriginalName();
+            $dish_image->move($path, $filename);
+            $dish_image = $path . $dish_image;
+            $dish->update(['dish_image' => $filename]);
+        }
+
+        // Getting values from the blade template form
+        $dish->dish_name =  $request->get('dish_name');
+        $dish->dish_detail =  $request->get('dish_detail');
+        $dish->dish_status =  $request->get('dish_status');
+        $dish->dish_price =  $request->get('dish_price');
         $dish->save();
         return back()->with('sms', 'Updated Data');
+    }
+
+    public function show_dishes()
+    {
+        $dish = Dish::all();
+        return view('dish_menu', compact('dish'));
+    }
+
+    public function show_dish_detail($dish_id)
+    {
+        $dish = Dish::find($dish_id);
+        return view('detail', ['Dish' => $dish]);
+    }
+
+    public function search(Request $request)
+    {
+        return $request->input();
+    }
+
+    public function addcart(Request $request, $dish_id)
+    {
+        if (Auth::user()) {
+            $user_id = Auth::user()->user_id;
+            $dish_id = $dish_id;
+            $quantity = $request->quantity;
+
+            $cart = new cart;
+            $cart->user_id = $user_id;
+            $cart->dish_id = $dish_id;
+            $cart->quantity = $quantity;
+            $cart->save();
+
+            return redirect()->back();
+        } else {
+            return redirect('/login');
+        }
+    }
+
+    public function showcart(Request $request, $user_id)
+    {
+
+        $count = cart::where('user_id', $user_id)->count();
+        $data = cart::where('user_id', $user_id)->join('dishes', 'carts.dish_id', '=', 'dishes.dish_id')->get();
+        return view('customer.showCart', compact('count', 'data'));
+    }
+
+    public function dish_cart_delete($cart_id)
+    {
+        $data = cart::where('cart_id', $cart_id);
+        $data->delete();
+        return back();
     }
 }

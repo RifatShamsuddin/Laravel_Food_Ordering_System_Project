@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Models\User;
 
-class RestaurantController extends Controller
+class UserController extends Controller
 {
     public function index()
     {
-        return view('restaurant.dish.add');
+        return view();
+    }
+
+    public function show_profile()
+    {
+        return view('restaurant/profile');
     }
 }

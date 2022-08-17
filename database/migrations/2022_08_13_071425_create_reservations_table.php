@@ -15,8 +15,10 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id('reservation_id');
+            $table->text('reservation_name');
             $table->integer('reservation_status');
             $table->longText('reservation_details');
+            $table->date('reservation_date');
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('restaurant_id')->references('user_id')->on('users');

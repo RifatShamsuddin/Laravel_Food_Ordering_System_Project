@@ -19,27 +19,29 @@
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                           <span class="navbar-toggler-icon"></span>
                         </button>
-                        
-                      
+                    
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
                           <ul class="navbar-nav mr-auto">
-                          </ul>
-                          <div class=""> 
-                            @if (Route::has('login')) <div class=""> 
-                                @auth 
-								@csrf
-								<a href="{{ route('dashboard.index') }}">Dashboard</a>
+                            	@if (Route::has('login')) 
+                                	@auth 
+									@csrf
+									<li class="nav-item">
+										<a href="{{ route('dashboard.index') }}">Dashboard</a>
+									</li>
 
-								<a class="dropdown-item" href="{{ route('logout') }}"
-								onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{('Logout') }}</a>
-							 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-								 @csrf
-							 </form>
+									<li class="nav-item">
+										<a class="dropdown-item" href="{{ route('logout') }}"
+										onclick="event.preventDefault();document.getElementById('logout-form').submit();">{{('Logout') }}</a>
+									 	<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none"></form>
+									</li>
+
+							 		
 								
-                            @else <a href="{{ route('login') }}">Log in</a> 
-                            @if (Route::has('register')) <a href="{{ route('register') }}">Register</a> 
-                            @endif 
-                            @endauth 
+                            	@else <a href="{{ route('login') }}">Log in</a> 
+                            	@if (Route::has('register')) <a href="{{ route('register') }}">Register</a> 
+                           		@endif 
+                            	@endauth 
+							</ul>
                         </div> 
                         @endif 
                         </div>
@@ -47,6 +49,7 @@
                 </div>
             </div>
         </div>
+		
     </header>
     
 	<body class="antialiased">
@@ -61,13 +64,7 @@
                 <div class="container">
                     <h2>Delicious food from the <br> <span>Best Chefs For you.</span></h2>
                     <div class="agileits_search">
-                        <form action="#" method="post">
-                            <input name="Search" type="text" placeholder="Enter Your Area Name" required="">
-                            <select id="agileinfo_search" name="agileinfo_search" required="">
-                                <option value="">Popular Cities</option>
-                                <option value="navs">New York</option>
-                                <option value="all">Other</option>
-                            </select>
+                        <form action="{{route('show_dishes')}}">
                             <input type="submit" value="Search">
                         </form>
                     </div> 
@@ -139,7 +136,7 @@
 					<p>
 						<a href="##">Terms &amp; Conditions</a> | <a href="##">Privacy Policy</a> | <a href="##">Contact</a>
 					</p>
-					<p>Copyright © Example.com 2015 </p>
+
 				</div>
 			</div>
 		</footer>

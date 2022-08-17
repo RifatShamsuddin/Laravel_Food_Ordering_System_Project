@@ -15,8 +15,13 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id('order_id');
-            $table->integer('order_status');
-            $table->longText('order_details');
+            $table->string('dishname')->nullable();
+            $table->string('price')->nullable();
+            $table->string('quantity')->nullable();
+            $table->integer('order_status')->default('0');
+            $table->string('phone');
+            $table->string('address');
+            $table->String('name');
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('restaurant_id')->references('user_id')->on('users');

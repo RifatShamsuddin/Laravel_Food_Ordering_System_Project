@@ -20,4 +20,8 @@ class DashboardController extends Controller
             return view('customer.dashboard');
         }
     }
+    public function home()
+    {
+        return view('welcome');
+    }
 }

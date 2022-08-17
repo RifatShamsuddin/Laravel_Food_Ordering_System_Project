@@ -1,11 +1,11 @@
 @extends('restaurant.dashboard')
 @section('title')
-Manage dish
+Manage Orders
 @endsection
 @section('content')
 <div class="card">
     <div class="card-header">
-      <h3 class="card-title">DataTable with default features</h3>
+      <h3 class="card-title">Orders</h3>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -13,31 +13,32 @@ Manage dish
         <thead>
         <tr>
             <th>SL</th>
-            <th>Dish Name</th>
-            <th>Details</th>
-            <th>Price</th>
-            <th>Image</th>
+            <th>Dishes</th>
+            <th>quantity</th>
+            <th>phone</th>
+            <th>address</th>
+            <th>order status</th>
             <th>Added On</th>
             <th>Action</th>
         </tr>
         </thead>
         <tbody>
-            @foreach ($dishes as $dish)
+            @foreach ($orders as $order)
             <tr>
                 <td>{{$loop->iteration}}</td>
-                <td>{{$dish->dish_name}}</td>
-                <td>{{$dish->dish_detail}}</td>
-                <td>{{$dish->dish_price}}</td>
-                <td><img src="{{asset($dish->dish_image)}}" height=50 width=50></td>
-                <td>{{$dish->created_at}}</td>
+                <td>{{$order->dishname}}</td>
+                <td>{{$order->quantity}}</td>
+                <td>{{$order->phone}}</td>
+                <td>{{$order->address}}</td>
+                <td>{{$order->order_status}}</td>
+                <td>{{$order->created_at}}</td>
                 <td>
-                    <a class="btn btn-outline-danger" href="{{route('dish_delete',['dish_id'=>$dish->dish_id])}}">
+                    <a class="btn btn-outline-danger" href="#">
                         <i class="fas fa-trash" title="Click to Delete"></i>
                     </a>
-                    <a class="btn btn-outline-dark" href="{{route('dish_edit',['dish_id'=>$dish->dish_id])}}">
-                      <i class="fas fa-edit" title="Click to Delete"></i>
+                    <a class="btn btn-outline-dark" href="#">
+                      <i class="fas fa-edit" title="Click to Edit"></i>
                   </a>
-
                 </td>
             </tr>
 
