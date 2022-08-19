@@ -38,4 +38,10 @@ class OrderController extends Controller
         $orders = DB::table('orders')->where('restaurant_id', Auth::user()->user_id)->get();
         return view('restaurant.orders.manageOrders', ['orders' => $orders]);
     }
+
+    public function approveOrder($order_id)
+    {
+        Order::where('order_id', $order_id)->update(array('order_status' => 1));
+        return back();
+    }
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DishController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\RestaurantController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,7 @@ Route::get('/', function () {
 Route::get('/redirects', [HomeController::class, "index"]);
 
 Auth::routes();
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('welcome', [HomeController::class, 'welcome'])->name('welcome');
 
 /* Dashboard Routes Start*/
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
@@ -57,6 +58,14 @@ Route::get('remove/{dish_id}', [DishController::class, 'dish_cart_delete'])->nam
 /* Order Routes End*/
 Route::POST('orderConfirm', [OrderController::class, 'orderConfirm'])->name('orderConfirm');
 Route::get('showOrders', [OrderController::class, 'showOrders'])->name('showOrders');
+Route::GET('approveOrder/{order_id}', [OrderController::class, 'approveOrder'])->name('approveOrder');
+/* Order Routes End*/
+
+Route::get('showRestaurants', [RestaurantController::class, 'showRestaurants'])->name('showRestaurants');
+Route::get('showDishes/{user_id}', [DishController::class, 'show_dishes'])->name('show_dishes');
+Route::PUT('/profile/{user_id}', [UserController::class, 'profile_update'])->name('profile_update');
 
 Route::get('showReservations', [ReservationController::class, 'showReservations'])->name('showReservations');
-/* Order Routes End*/
+Route::get('showReservationForm/{data}', [ReservationController::class, 'showReservationForm'])->name('showReservationForm');
+Route::POST('saveReservation', [ReservationController::class, 'saveReservation'])->name('saveReservation');
+Route::GET('approveReservation/{reservation_id}', [ReservationController::class, 'approveReservation'])->name('approveReservation');

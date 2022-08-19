@@ -2,9 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+
+
 
 class RestaurantController extends Controller
 {
-    //
+    function showRestaurants()
+    {
+        $restaurants = User::where('user_type', 1)->get();
+        return view('customer.showRestaurants', compact('restaurants'));
+    }
 }

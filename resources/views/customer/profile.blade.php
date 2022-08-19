@@ -1,4 +1,4 @@
-@extends('restaurant.dashboard')
+@extends('customer.dashboard')
 @section('title')
     Profile
 @endsection

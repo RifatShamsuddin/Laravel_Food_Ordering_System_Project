@@ -62,19 +62,16 @@ class DishController extends Controller
 
     public function dish_update(Request $request, $dish_id)
     {
-        // Validation for required fields (and using some regex to validate our numeric value)
         $dish = Dish::find($dish_id);
 
         if ($request->dish_image != '') {
             $path = 'adminDashboardSourceFiles\dish_img';
 
-            //code for remove old file
             if ($dish->dish_image != " "  && $dish->dish_image != null) {
                 $dish_image_old = $dish->dish_image;
                 unlink($dish_image_old);
             }
 
-            //upload new file
             $dish_image = $request->dish_image;
             $filename = $dish_image->getClientOriginalName();
             $dish_image->move($path, $filename);
@@ -82,7 +79,6 @@ class DishController extends Controller
             $dish->update(['dish_image' => $filename]);
         }
 
-        // Getting values from the blade template form
         $dish->dish_name =  $request->get('dish_name');
         $dish->dish_detail =  $request->get('dish_detail');
         $dish->dish_status =  $request->get('dish_status');
@@ -91,10 +87,10 @@ class DishController extends Controller
         return back()->with('sms', 'Updated Data');
     }
 
-    public function show_dishes()
+    public function show_dishes($user_id)
     {
-        $dish = Dish::all();
-        return view('dish_menu', compact('dish'));
+        $dishes = Dish::where('restaurant_id', $user_id)->get();
+        return view('dish_menu', compact('dishes'));
     }
 
     public function show_dish_detail($dish_id)
