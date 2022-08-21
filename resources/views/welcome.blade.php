@@ -42,12 +42,12 @@
                             </li>
                         @else
                             <li class="nav-item">
-                                <a href="{{ route('login') }}"> Log in </a>
+                                <a class="nav-link" href="{{ route('login') }}"> Log in </a>
                             </li>
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a href="{{ route('register') }}"> Register </a>
+                                    <a class="nav-link" href="{{ route('register') }}"> Register </a>
                                 </li>
                             @endif
                         @endauth
@@ -65,13 +65,17 @@
                 <h2>Delicious food from the <br> <span>Best Chefs For you.</span></h2>
                 <div class="agileits_search">
                     @if (Route::has('login'))
-                        @csrf
-                        <form action="{{ route('showRestaurants') }}">
-                            <input type="submit" value="Click to Search">
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}"> Log in </a>
-                    @endif
+                        @auth
+                            @csrf
+                            <form action="{{ route('showRestaurants') }}">
+                                <input type="submit" value="Click to Search">
+                            </form>
+                        @else
+                            <form action="{{ route('login') }}">
+                                <input type="submit" value="Click to Search">
+                            </form>
+                        @endif
+                    @endauth
                 </div>
             </div>
         </div>

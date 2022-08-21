@@ -49,7 +49,7 @@ Route::get('/dish/edit/{dish_id}', [DishController::class, 'dish_edit'])->name('
 Route::PUT('/dish/update/{dish_id}', [DishController::class, 'dish_update'])->name('dish_update');
 Route::GET('/dish/show_update/{dish_id}', [DishController::class, 'show_update'])->name('show_update');
 Route::GET('/dish/search', [DishController::class, 'show_dishes'])->name('show_dishes');
-
+Route::get('showDishes/{user_id}', [DishController::class, 'show_dishes'])->name('show_dishes');
 Route::POST('/addcart/{dish_id}', [DishController::class, 'addcart'])->name('addcart');
 Route::get('showcart/{user_id}', [DishController::class, 'showcart'])->name('showcart');
 Route::get('remove/{dish_id}', [DishController::class, 'dish_cart_delete'])->name('dish_cart_delete');
@@ -58,14 +58,16 @@ Route::get('remove/{dish_id}', [DishController::class, 'dish_cart_delete'])->nam
 /* Order Routes End*/
 Route::POST('orderConfirm', [OrderController::class, 'orderConfirm'])->name('orderConfirm');
 Route::get('showOrders', [OrderController::class, 'showOrders'])->name('showOrders');
+Route::get('showCustomerOrders', [OrderController::class, 'show_customer_orders'])->name('show_customer_orders');
 Route::GET('approveOrder/{order_id}', [OrderController::class, 'approveOrder'])->name('approveOrder');
+Route::GET('bill/{order_id}', [OrderController::class, 'bill'])->name('bill');
 /* Order Routes End*/
 
 Route::get('showRestaurants', [RestaurantController::class, 'showRestaurants'])->name('showRestaurants');
-Route::get('showDishes/{user_id}', [DishController::class, 'show_dishes'])->name('show_dishes');
 Route::PUT('/profile/{user_id}', [UserController::class, 'profile_update'])->name('profile_update');
 
 Route::get('showReservations', [ReservationController::class, 'showReservations'])->name('showReservations');
 Route::get('showReservationForm/{data}', [ReservationController::class, 'showReservationForm'])->name('showReservationForm');
 Route::POST('saveReservation', [ReservationController::class, 'saveReservation'])->name('saveReservation');
 Route::GET('approveReservation/{reservation_id}', [ReservationController::class, 'approveReservation'])->name('approveReservation');
+Route::GET('customerReservation', [ReservationController::class, 'customerReservation'])->name('customerReservation');

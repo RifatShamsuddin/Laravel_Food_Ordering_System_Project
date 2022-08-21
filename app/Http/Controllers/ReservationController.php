@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Models\User;
 use App\Models\Reservation;
 
 class ReservationController extends Controller
@@ -37,5 +38,13 @@ class ReservationController extends Controller
     {
         Reservation::where('reservation_id', $reservation_id)->update(array('reservation_status' => 1));
         return back();
+    }
+
+    public function customerReservation()
+    {
+        $reservation = DB::table('reservations')->where('customer_id', Auth::user()->user_id)->get();
+        $restaurant_id = $reservation[0]->restaurant_id;
+        $restaurant = User::where('user_id', $restaurant_id)->pluck('name')->first();
+        return view('customer.customerReservation', ['reservations' => $reservation, 'restaurant_name' => $restaurant]);
     }
 }
