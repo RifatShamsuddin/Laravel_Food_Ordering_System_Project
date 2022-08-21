@@ -81,7 +81,7 @@
                                         hidden="">
                                     {{ $data->dish_price }}
                                     @php
-                                        $total = $total + $data->dish_price;
+                                        $total = $total + $data->dish_price * $data->quantity;
                                     @endphp
                                 </td>
                                 <td>

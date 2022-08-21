@@ -43,8 +43,14 @@ class ReservationController extends Controller
     public function customerReservation()
     {
         $reservation = DB::table('reservations')->where('customer_id', Auth::user()->user_id)->get();
-        $restaurant_id = $reservation[0]->restaurant_id;
+        $restaurant_id = $reservation->restaurant_id;
         $restaurant = User::where('user_id', $restaurant_id)->pluck('name')->first();
         return view('customer.customerReservation', ['reservations' => $reservation, 'restaurant_name' => $restaurant]);
+    }
+
+    public function restaurantReservation()
+    {
+        $reservation = DB::table('reservations')->where('restaurant_id', Auth::user()->user_id)->get();
+        return view('restaurant.reservations.manageReservations', ['reservations' => $reservation]);
     }
 }

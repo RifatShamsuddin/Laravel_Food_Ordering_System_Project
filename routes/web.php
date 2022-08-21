@@ -48,7 +48,6 @@ Route::get('/dish/delete/{dish_id}', [DishController::class, 'dish_delete'])->na
 Route::get('/dish/edit/{dish_id}', [DishController::class, 'dish_edit'])->name('dish_edit');
 Route::PUT('/dish/update/{dish_id}', [DishController::class, 'dish_update'])->name('dish_update');
 Route::GET('/dish/show_update/{dish_id}', [DishController::class, 'show_update'])->name('show_update');
-Route::GET('/dish/search', [DishController::class, 'show_dishes'])->name('show_dishes');
 Route::get('showDishes/{user_id}', [DishController::class, 'show_dishes'])->name('show_dishes');
 Route::POST('/addcart/{dish_id}', [DishController::class, 'addcart'])->name('addcart');
 Route::get('showcart/{user_id}', [DishController::class, 'showcart'])->name('showcart');
@@ -71,3 +70,4 @@ Route::get('showReservationForm/{data}', [ReservationController::class, 'showRes
 Route::POST('saveReservation', [ReservationController::class, 'saveReservation'])->name('saveReservation');
 Route::GET('approveReservation/{reservation_id}', [ReservationController::class, 'approveReservation'])->name('approveReservation');
 Route::GET('customerReservation', [ReservationController::class, 'customerReservation'])->name('customerReservation');
+Route::GET('restaurantReservation', [ReservationController::class, 'restaurantReservation'])->name('restaurantReservation');
