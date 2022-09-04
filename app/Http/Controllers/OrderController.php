@@ -56,7 +56,7 @@ class OrderController extends Controller
     }
 
 
-    public function bill($order_id)
+    public function showBill($order_id)
     {
         $order = Order::where('order_id', $order_id)->first();
         return view('bill', ['order' => $order]);

@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('dishname')->nullable();
             $table->string('price')->nullable();
             $table->string('quantity')->nullable();
+            $table->float('total')->nullable();
             $table->integer('order_status')->default('0');
             $table->string('phone');
             $table->string('address');
-            $table->String('name');
             $table->unsignedBigInteger('restaurant_id');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('restaurant_id')->references('user_id')->on('users');

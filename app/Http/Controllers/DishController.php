@@ -99,10 +99,6 @@ class DishController extends Controller
         return view('detail', ['Dish' => $dish]);
     }
 
-    public function search(Request $request)
-    {
-        return $request->input();
-    }
 
     public function addcart(Request $request, $dish_id)
     {

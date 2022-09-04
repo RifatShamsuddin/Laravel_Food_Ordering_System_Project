@@ -12,11 +12,9 @@ class DashboardController extends Controller
     {
         if (Auth::user()->user_type == 0) {
             return view('admin.dashboard');
-        }
-        if (Auth::user()->user_type == 1) {
+        } elseif (Auth::user()->user_type == 1) {
             return view('restaurant.dashboard');
-        }
-        if (Auth::user()->user_type == 2) {
+        } elseif (Auth::user()->user_type == 2) {
             return view('customer.dashboard');
         }
     }

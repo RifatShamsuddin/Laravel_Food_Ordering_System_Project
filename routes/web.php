@@ -59,7 +59,7 @@ Route::POST('orderConfirm', [OrderController::class, 'orderConfirm'])->name('ord
 Route::get('showOrders', [OrderController::class, 'showOrders'])->name('showOrders');
 Route::get('showCustomerOrders', [OrderController::class, 'show_customer_orders'])->name('show_customer_orders');
 Route::GET('approveOrder/{order_id}', [OrderController::class, 'approveOrder'])->name('approveOrder');
-Route::GET('bill/{order_id}', [OrderController::class, 'bill'])->name('bill');
+Route::GET('showBill/{order_id}', [OrderController::class, 'bill'])->name('bill');
 /* Order Routes End*/
 
 Route::get('showRestaurants', [RestaurantController::class, 'showRestaurants'])->name('showRestaurants');
